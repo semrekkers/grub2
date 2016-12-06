@@ -25,6 +25,10 @@
 #include <grub/net/udp.h>
 #include <grub/datetime.h>
 
+/* Ignore const argument conflicts.
+ * These where encountered at parse_dhcp_vendor. */
+#pragma GCC diagnostic ignored "-Wdiscarded-array-qualifiers"
+
 static char *
 grub_env_write_readonly (struct grub_env_var *var __attribute__ ((unused)),
 			 const char *val __attribute__ ((unused)))

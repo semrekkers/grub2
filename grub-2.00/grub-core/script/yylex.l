@@ -29,12 +29,13 @@
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
 #pragma GCC diagnostic ignored "-Wmissing-declarations"
 #pragma GCC diagnostic ignored "-Wunsafe-loop-optimizations"
+#pragma GCC diagnostic ignored "-Wsign-compare"
 
 #define yyfree    grub_lexer_yyfree
 #define yyalloc   grub_lexer_yyalloc
 #define yyrealloc grub_lexer_yyrealloc
 
-/* 
+/*
  * As we don't have access to yyscanner, we cannot do much except to
  * print the fatal error.
  */
@@ -84,7 +85,7 @@ static void  copy_string (struct grub_parser_param *, const char *,
 typedef size_t yy_size_t;
 #define YY_TYPEDEF_YY_SIZE_T 1
 
-/* 
+/*
  * Some flex hacks for -nostdinc; XXX We need to fix these when libc
  * support becomes availble in GRUB.
  */

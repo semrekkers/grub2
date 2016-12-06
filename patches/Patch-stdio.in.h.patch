@@ -1,0 +1,28 @@
+From 78d591c257a34d3c304ed9d9413d8876c6cdec7d Mon Sep 17 00:00:00 2001
+From: Sem Rekkers <rekkers.sem@gmail.com>
+Date: Tue, 6 Dec 2016 13:49:57 +0100
+Subject: [PATCH] Patch stdio.in.h
+
+Patch stdio.in.h to fix the gets build error.
+---
+ grub-2.00/grub-core/gnulib/stdio.in.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/grub-2.00/grub-core/gnulib/stdio.in.h b/grub-2.00/grub-core/gnulib/stdio.in.h
+index 80b9dbf..f3ea142 100644
+--- a/grub-2.00/grub-core/gnulib/stdio.in.h
++++ b/grub-2.00/grub-core/gnulib/stdio.in.h
+@@ -140,8 +140,10 @@ _GL_WARN_ON_USE (fflush, "fflush is not always POSIX compliant - "
+ /* It is very rare that the developer ever has full control of stdin,
+    so any use of gets warrants an unconditional warning.  Assume it is
+    always declared, since it is required by C89.  */
++#ifdef gets
+ #undef gets
+ _GL_WARN_ON_USE (gets, "gets is a security hole - use fgets instead");
++#endif
+ 
+ #if @GNULIB_FOPEN@
+ # if @REPLACE_FOPEN@
+-- 
+2.7.4
+

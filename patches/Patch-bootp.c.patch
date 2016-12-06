@@ -1,0 +1,28 @@
+From 804dca0439d2884dfa92f6738893c8d6c6ba4dc5 Mon Sep 17 00:00:00 2001
+From: Sem Rekkers <rekkers.sem@gmail.com>
+Date: Tue, 6 Dec 2016 14:33:41 +0100
+Subject: [PATCH] Patch bootp.c
+
+Patch bootp.c to fix the const argument conflict build errors in bootp.
+---
+ grub-2.00/grub-core/net/bootp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/grub-2.00/grub-core/net/bootp.c b/grub-2.00/grub-core/net/bootp.c
+index bc07d53..54cca10 100644
+--- a/grub-2.00/grub-core/net/bootp.c
++++ b/grub-2.00/grub-core/net/bootp.c
+@@ -25,6 +25,10 @@
+ #include <grub/net/udp.h>
+ #include <grub/datetime.h>
+ 
++/* Ignore const argument conflicts.
++ * These where encountered at parse_dhcp_vendor. */
++#pragma GCC diagnostic ignored "-Wdiscarded-array-qualifiers"
++
+ static char *
+ grub_env_write_readonly (struct grub_env_var *var __attribute__ ((unused)),
+ 			 const char *val __attribute__ ((unused)))
+-- 
+2.7.4
+

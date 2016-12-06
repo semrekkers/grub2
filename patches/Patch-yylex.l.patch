@@ -1,0 +1,41 @@
+From 7a7e8cd054d4101b15dfbde3baf4a8d01bfeb2f4 Mon Sep 17 00:00:00 2001
+From: Sem Rekkers <rekkers.sem@gmail.com>
+Date: Tue, 6 Dec 2016 14:03:51 +0100
+Subject: [PATCH] Patch yylex.l
+
+Patch yylex.l to fix the compare signed with unsigned build error.
+---
+ grub-2.00/grub-core/script/yylex.l | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/grub-2.00/grub-core/script/yylex.l b/grub-2.00/grub-core/script/yylex.l
+index f6a39c5..37e3097 100644
+--- a/grub-2.00/grub-core/script/yylex.l
++++ b/grub-2.00/grub-core/script/yylex.l
+@@ -29,12 +29,13 @@
+ #pragma GCC diagnostic ignored "-Wmissing-prototypes"
+ #pragma GCC diagnostic ignored "-Wmissing-declarations"
+ #pragma GCC diagnostic ignored "-Wunsafe-loop-optimizations"
++#pragma GCC diagnostic ignored "-Wsign-compare"
+ 
+ #define yyfree    grub_lexer_yyfree
+ #define yyalloc   grub_lexer_yyalloc
+ #define yyrealloc grub_lexer_yyrealloc
+ 
+-/* 
++/*
+  * As we don't have access to yyscanner, we cannot do much except to
+  * print the fatal error.
+  */
+@@ -84,7 +85,7 @@ static void  copy_string (struct grub_parser_param *, const char *,
+ typedef size_t yy_size_t;
+ #define YY_TYPEDEF_YY_SIZE_T 1
+ 
+-/* 
++/*
+  * Some flex hacks for -nostdinc; XXX We need to fix these when libc
+  * support becomes availble in GRUB.
+  */
+-- 
+2.7.4
+
